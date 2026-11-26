@@ -17,6 +17,6 @@
     <!-- 뒤 단수 번호가 큰 스프라켓부터 매겨지는 구동계 -->
     <property id="reverseRear" type="boolean">false</property>
 
-    <!-- 배경색: 0=기기 화면색에 맞춤 1=검정/흰색 그대로(기본) 2=투명(안 칠함) -->
-    <property id="bgMode" type="number">1</property>
+    <!-- 배경색: 0=기기 화면색에 맞춤(기본) 1=검정/흰색 그대로 2=투명(안 칠함) -->
+    <property id="bgMode" type="number">0</property>
 </properties>

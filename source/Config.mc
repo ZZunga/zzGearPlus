@@ -26,7 +26,7 @@ module Config {
     }
 
     class Snapshot {
-        var bgMode     = BG_PLAIN; // 배경색
+        var bgMode     = BG_AUTO;  // 배경색
         var mainValue  = MAIN_GEAR;
         var showIcon   = true;      // 좌상단 기어 아이콘
         var showBatt   = true;      // 배터리 (ANT+ 가 알려줄 때만)
@@ -83,7 +83,7 @@ module Config {
         s.showTeeth   = _bool("showTeeth", true);
         s.crossWarn   = _num("crossWarn", CROSS_EDGE, 0, 2);
         s.reverseRear = _bool("reverseRear", false);
-        s.bgMode      = _num("bgMode", BG_PLAIN, 0, 2);
+        s.bgMode      = _num("bgMode", BG_AUTO, 0, 2);
         _cache = s;
         return s;
     }
