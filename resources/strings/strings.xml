@@ -1,0 +1,31 @@
+<strings>
+    <string id="AppName">zzGearPlus</string>
+    <string id="appVersion_title">Version</string>
+
+    <string id="mainValue_title">Main value</string>
+    <string id="mainGear">Gear (2-5)</string>
+    <string id="mainRatio">Gear ratio (3.2)</string>
+
+    <string id="showIcon_title">Show gear icon</string>
+    <string id="showBattery_title">Show shifting battery</string>
+    <string id="showUsage_title">Shade rings by time in gear</string>
+    <string id="showTeeth_title">Show teeth (large wide field)</string>
+
+    <string id="crossWarn_title">Cross-chain warning</string>
+    <string id="crossOff">Off</string>
+    <string id="crossEdge">Last sprocket only</string>
+    <string id="crossWide">Last two sprockets</string>
+    <string id="reverseRear_title">Rear gear 1 is the largest sprocket</string>
+
+    <string id="crossMsg">Cross-chain - shift the front</string>
+
+    <string id="fitFront">Front gear</string>
+    <string id="fitRear">Rear gear</string>
+    <string id="fitRatio">Gear ratio</string>
+    <string id="fitToothUnit">T</string>
+    <string id="fitRatioUnit">x</string>
+    <string id="bgMode_title">Background</string>
+    <string id="bgAuto">Match device screen</string>
+    <string id="bgPlain">Plain black / white</string>
+    <string id="bgClear">Transparent (no fill)</string>
+</strings>

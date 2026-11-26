@@ -1,0 +1,44 @@
+<settings>
+    <setting propertyKey="@Properties.appVersion" title="@Strings.appVersion_title">
+        <settingConfig type="alphaNumeric" readonly="true"/>
+    </setting>
+
+    <setting propertyKey="@Properties.mainValue" title="@Strings.mainValue_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.mainGear</listEntry>
+            <listEntry value="1">@Strings.mainRatio</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.crossWarn" title="@Strings.crossWarn_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.crossOff</listEntry>
+            <listEntry value="1">@Strings.crossEdge</listEntry>
+            <listEntry value="2">@Strings.crossWide</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.reverseRear" title="@Strings.reverseRear_title">
+        <settingConfig type="boolean"/>
+    </setting>
+
+    <setting propertyKey="@Properties.showIcon" title="@Strings.showIcon_title">
+        <settingConfig type="boolean"/>
+    </setting>
+    <setting propertyKey="@Properties.showBattery" title="@Strings.showBattery_title">
+        <settingConfig type="boolean"/>
+    </setting>
+    <setting propertyKey="@Properties.showUsage" title="@Strings.showUsage_title">
+        <settingConfig type="boolean"/>
+    </setting>
+    <setting propertyKey="@Properties.showTeeth" title="@Strings.showTeeth_title">
+        <settingConfig type="boolean"/>
+    </setting>
+
+    <setting propertyKey="@Properties.bgMode" title="@Strings.bgMode_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.bgAuto</listEntry>
+            <listEntry value="1">@Strings.bgPlain</listEntry>
+            <listEntry value="2">@Strings.bgClear</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

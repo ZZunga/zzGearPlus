@@ -1,0 +1,66 @@
+[Title]
+zzGearPlus - Gear, Ratio, Rings, Cross-chain
+
+[Description]
+A data field that shows your current gear as concentric circles, not just numbers.
+The rear cassette is drawn as evenly spaced rings with only the current sprocket picked out in a thick colored ring, so you can see where you are without reading a number.
+Built with the TitilliumWeb font for better readability on the move.
+
+- Needs an electronic drivetrain that broadcasts ANT+ shifting (Shimano Di2, SRAM AXS, Campagnolo EPS, L-TWOO, Wheeltop and others).
+- No phone connection required.
+
+[Concentric drivetrain]
+- The rear cassette is drawn as evenly spaced rings. Inner rings are the easier gears (small sprockets), outer rings the harder ones.
+- Only the current gear is drawn as a thick orange ring.
+- The shade of the grey rings shows how long you have spent in that gear - the more you use it, the darker it gets. (can be turned off)
+- Wide fields also draw the front chainring as a blue circle. As on the bike, the front is larger than the rear.
+- On a 1x drivetrain the front is left out and the cassette is drawn larger, in the middle.
+- Small fields drop to 6 rings so they stay readable.
+
+[Gear numbers and ratio]
+- Front and rear are shown together. The front gear is set in smaller digits beside the rear, so the number you actually watch stays the largest.
+- The text size is chosen once from the longest value your drivetrain can show (e.g. 2-12), so the digits never jump around as you shift.
+- The gear ratio (front teeth / rear teeth) sits in the top right corner. A setting swaps it with the big number.
+- Large wide fields add the tooth counts (e.g. 50 / 17 T) on the bottom line.
+
+[Cross-chain warning]
+- Big ring with the largest sprocket, or small ring with the smallest sprocket, turns the current ring, the icon and the ratio red.
+- Large wide fields add a one-line message.
+- Choose the last sprocket only (default) or the last two, or turn it off.
+- With full synchronized shifting (Di2) or sequential shifting (AXS) the system handles the front for you, so you can leave it off.
+- On a 1x drivetrain there is nothing to shift at the front, so the warning turns itself off.
+
+[Shifting battery]
+- The shifting battery status reported over ANT+ is shown as an icon in the top right corner.
+- Green for OK or better, yellow for low, red for critical.
+- ANT+ reports battery as a five level status, not a percentage.
+- Shimano Di2 does not send battery status over ANT+. The space is left empty and the rings grow into it.
+
+[Layouts, picked automatically]
+- One slot of the 10-field layout: icon top left, ratio and battery top right, gear number bottom right, cassette rings on the left.
+- Wide slots: app name top left, gear number bottom left, ratio and battery top right, front and rear drivetrain in the middle.
+- Large wide slots: the drivetrain drawn large in the middle, with gear, ratio and tooth counts on the bottom line.
+- Same typeface, sizes and layout as zzHeartPlus, zzPowerPlus, zzSpeedPlus and the rest of the series, so they look consistent side by side.
+
+[Recording]
+- Front and rear tooth counts and the gear ratio are saved in the activity, so you can see them as charts in Garmin Connect.
+
+[Settings]
+- Main value: gear (default) or gear ratio
+- Cross-chain warning: off / last sprocket / last two sprockets
+- Reverse option for drivetrains that number rear gear 1 as the largest sprocket
+- Show or hide the gear icon, shifting battery, time-in-gear shading and tooth counts
+
+[Supported devices]
+Edge 540 / 550 / 840 / 850 / 1040 / 1050 / 1060
+
+Change settings in the Garmin Connect IQ app or Garmin Express.
+
+[What's new]
+v1.0.1
+- Background setting added (match device screen / plain black & white / transparent)
+  Addresses the data field background not matching built-in fields on Edge 1050/1060.
+- Fixed the field not drawing in wide, tall layouts
+- Edge 1060 launcher icon size fixed
+v1.0.0
+- First release

@@ -1,0 +1,17 @@
+info face="TitilliumWeb" size=62 bold=1 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=43 base=42 scaleW=433 scaleH=47 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="wideval_42.png"
+chars count=13
+char id=32 x=2 y=2 width=14 height=0 xoffset=0 yoffset=42 xadvance=14 page=0 chnl=15
+char id=45 x=18 y=2 width=25 height=21 xoffset=0 yoffset=21 xadvance=25 page=0 chnl=15
+char id=46 x=45 y=2 width=16 height=10 xoffset=0 yoffset=32 xadvance=16 page=0 chnl=15
+char id=48 x=63 y=2 width=35 height=43 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=49 x=100 y=2 width=35 height=41 xoffset=0 yoffset=1 xadvance=35 page=0 chnl=15
+char id=50 x=137 y=2 width=35 height=42 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=51 x=174 y=2 width=35 height=43 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=52 x=211 y=2 width=35 height=42 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=53 x=248 y=2 width=35 height=42 xoffset=0 yoffset=1 xadvance=35 page=0 chnl=15
+char id=54 x=285 y=2 width=35 height=43 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=55 x=322 y=2 width=35 height=43 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=56 x=359 y=2 width=35 height=43 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15
+char id=57 x=396 y=2 width=35 height=43 xoffset=0 yoffset=0 xadvance=35 page=0 chnl=15

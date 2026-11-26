@@ -1,0 +1,22 @@
+<properties>
+    <property id="appVersion" type="string">1.0.1</property>
+
+    <!-- 큰 숫자: 0=기어 단수(기본) 1=기어비. 윗줄에는 반대쪽이 들어간다 -->
+    <property id="mainValue" type="number">0</property>
+
+    <!-- 좌상단 기어 아이콘 / 변속기 배터리 (ANT+ 가 알려줄 때만) -->
+    <property id="showIcon" type="boolean">true</property>
+    <property id="showBattery" type="boolean">true</property>
+
+    <!-- 사용 시간이 많은 기어의 링을 진하게 / 넓고 높은 칸 아래 톱니수 -->
+    <property id="showUsage" type="boolean">true</property>
+    <property id="showTeeth" type="boolean">true</property>
+
+    <!-- 크로스체인 경고: 0=끄기 1=양 끝 한 단(기본) 2=양 끝 두 단 -->
+    <property id="crossWarn" type="number">1</property>
+    <!-- 뒤 단수 번호가 큰 스프라켓부터 매겨지는 구동계 -->
+    <property id="reverseRear" type="boolean">false</property>
+
+    <!-- 배경색: 0=기기 화면색에 맞춤 1=검정/흰색 그대로(기본) 2=투명(안 칠함) -->
+    <property id="bgMode" type="number">1</property>
+</properties>

@@ -1,0 +1,12 @@
+<fonts>
+    <!-- TitilliumWeb Bold. 숫자 폰트는 tools/genfonts.py, WideTitle 은 tools/FntGen.java 로 생성 -->
+    <font id="C10Main" filename="c10main_34.fnt" antialias="true"/>
+    <font id="C10Sub" filename="c10sub_20.fnt" antialias="true"/>
+    <font id="C10Dec" filename="c10dec_12.fnt" antialias="true"/>
+    <font id="C10Head" filename="c10head_24.fnt" antialias="true"/>
+    <font id="WideVal" filename="wideval_35.fnt" antialias="true"/>
+    <font id="WideTitle" filename="widetitle-17.fnt" antialias="true"/>
+    <font id="WideLabel" filename="widelabel_10.fnt" antialias="true"/>
+    <font id="IconSub" filename="iconsub_22.fnt" antialias="true"/>
+    <font id="IconTitle" filename="icontitle_14.fnt" antialias="true"/>
+</fonts>

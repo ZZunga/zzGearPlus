@@ -1,0 +1,31 @@
+<strings>
+    <string id="AppName">zz기어+</string>
+    <string id="appVersion_title">버전</string>
+
+    <string id="mainValue_title">큰 숫자</string>
+    <string id="mainGear">기어 단수 (2-5)</string>
+    <string id="mainRatio">기어비 (3.2)</string>
+
+    <string id="showIcon_title">기어 아이콘 표시</string>
+    <string id="showBattery_title">변속기 배터리 표시</string>
+    <string id="showUsage_title">사용 시간이 많은 기어를 진하게</string>
+    <string id="showTeeth_title">톱니수 표시 (넓고 높은 칸)</string>
+
+    <string id="crossWarn_title">크로스체인 경고</string>
+    <string id="crossOff">끄기</string>
+    <string id="crossEdge">양 끝 한 단</string>
+    <string id="crossWide">양 끝 두 단</string>
+    <string id="reverseRear_title">뒤 1단이 가장 큰 스프라켓</string>
+
+    <string id="crossMsg">크로스체인 · 앞을 바꾸세요</string>
+
+    <string id="fitFront">앞 기어</string>
+    <string id="fitRear">뒤 기어</string>
+    <string id="fitRatio">기어비</string>
+    <string id="fitToothUnit">T</string>
+    <string id="fitRatioUnit">x</string>
+    <string id="bgMode_title">배경색</string>
+    <string id="bgAuto">기기 화면색에 맞춤</string>
+    <string id="bgPlain">검정 / 흰색 그대로</string>
+    <string id="bgClear">투명 (칠하지 않음)</string>
+</strings>
