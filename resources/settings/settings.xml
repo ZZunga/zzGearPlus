@@ -41,4 +41,11 @@
             <listEntry value="2">@Strings.bgClear</listEntry>
         </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.gearView" title="@Strings.GearViewTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.GearViewRing</listEntry>
+            <listEntry value="1">@Strings.GearViewBar</listEntry>
+        </settingConfig>
+    </setting>
+
 </settings>

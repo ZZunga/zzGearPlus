@@ -28,4 +28,7 @@
     <string id="bgAuto">Match device screen</string>
     <string id="bgPlain">Plain black / white</string>
     <string id="bgClear">Transparent (no fill)</string>
+    <string id="GearViewTitle">Gear graphic</string>
+    <string id="GearViewRing">Rings (cassette from the front)</string>
+    <string id="GearViewBar">Bars (cassette from the side)</string>
 </strings>

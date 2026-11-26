@@ -28,4 +28,7 @@
     <string id="bgAuto">기기 화면색에 맞춤</string>
     <string id="bgPlain">검정 / 흰색 그대로</string>
     <string id="bgClear">투명 (칠하지 않음)</string>
+    <string id="GearViewTitle">기어 그림</string>
+    <string id="GearViewRing">동심원 (카세트 정면)</string>
+    <string id="GearViewBar">막대 (카세트 옆모습)</string>
 </strings>

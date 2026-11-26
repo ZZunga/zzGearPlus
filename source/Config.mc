@@ -12,6 +12,12 @@ module Config {
         BG_CLEAR = 2    // 칠하지 않음 (기기 배경이 그대로 비침)
     }
 
+    // 기어 그림 (gearView)
+    enum {
+        GV_RING = 0,    // 동심원 - 카세트를 정면에서 본 모습 (기본)
+        GV_BAR  = 1     // 막대 - 카세트를 옆에서 본 모습
+    }
+
     // 큰 숫자에 무엇을 둘지 (mainValue)
     enum {
         MAIN_GEAR  = 0,     // 기어 단수 "2-5" (기본), 윗줄은 기어비
@@ -27,6 +33,7 @@ module Config {
 
     class Snapshot {
         var bgMode     = BG_AUTO;  // 배경색
+        var gearView   = GV_RING;   // 기어 그림: 동심원 / 막대
         var mainValue  = MAIN_GEAR;
         var showIcon   = true;      // 좌상단 기어 아이콘
         var showBatt   = true;      // 배터리 (ANT+ 가 알려줄 때만)
@@ -76,6 +83,7 @@ module Config {
             return _cache;
         }
         var s = new Snapshot();
+        s.gearView    = _num("gearView", GV_RING, 0, 1);
         s.mainValue   = _num("mainValue", MAIN_GEAR, 0, 1);
         s.showIcon    = _bool("showIcon", true);
         s.showBatt    = _bool("showBattery", true);

@@ -255,18 +255,27 @@ class zzGearPlusView extends WatchUi.DataField {
 
     // ---- 좁은 칸 ----
     hidden function drawNarrow(dc, f) {
-        // 1) 동심원: 크기는 칸 높이로 고정, 자리만 오른쪽으로 10%
-        var rr = (f.areaBot - f.areaTop) / 2;
-        var cx = f.areaL + rr + (f.w * 10) / 100;
-        if (cx + rr > f.R) {
-            cx = f.R - rr;
-        }
-        if (rr > 8) {
-            drawCassette(dc, cx, f.ringCY, rr);
-        }
+        if (mCfg.gearView == Config.GV_BAR) {
+            // 막대는 칸을 다 쓰고, 오른쪽 위 빈 자리에 기어 숫자를 넣는다
+            drawBars(dc, f.L, f.R, f.areaTop, f.B, false);
+            var areaH = f.B - f.areaTop;
+            var big = (f.mainCap <= (areaH * 62) / 100);
+            var cap = big ? f.mainCap : f.subCap;
+            drawMainNarrow(dc, f, ((f.R - f.L) * 45) / 100, f.areaTop + cap + f.ug);
+        } else {
+            // 1) 동심원: 크기는 칸 높이로 고정, 자리만 오른쪽으로 10%
+            var rr = (f.areaBot - f.areaTop) / 2;
+            var cx = f.areaL + rr + (f.w * 10) / 100;
+            if (cx + rr > f.R) {
+                cx = f.R - rr;
+            }
+            if (rr > 8) {
+                drawCassette(dc, cx, f.ringCY, rr);
+            }
 
-        // 2) 기어 숫자: 동심원 오른쪽에 남는 폭에 맞춰 (앞기어는 70% 크기)
-        drawMainNarrow(dc, f, f.R - (cx + rr) - f.ug * 2);
+            // 2) 기어 숫자: 동심원 오른쪽에 남는 폭에 맞춰 (앞기어는 70% 크기)
+            drawMainNarrow(dc, f, f.R - (cx + rr) - f.ug * 2, f.B);
+        }
 
         // 3) 윗줄: 아이콘 / 바깥쪽 끝 배터리 / 그 안쪽 기어비
         var xr = f.R;
@@ -285,7 +294,7 @@ class zzGearPlusView extends WatchUi.DataField {
 
     // 좁은 칸 기어 숫자. 앞기어는 뒷기어의 70% 크기로 앞에 붙인다.
     //  avail 안에 들어가는 가장 큰 조합을 고른다 (메인+70% -> 보조+소수 -> 보조만)
-    hidden function drawMainNarrow(dc, f, avail) {
+    hidden function drawMainNarrow(dc, f, avail, baseY) {
         dc.setColor(mFg, Graphics.COLOR_TRANSPARENT);
         if (mCfg.mainValue == Config.MAIN_RATIO || Gears.oneX() || Gears.fIdx == null) {
             // 한 덩어리 (기어비 표시거나 1x)
@@ -297,7 +306,7 @@ class zzGearPlusView extends WatchUi.DataField {
                 fo = mSubF;
                 co = f.subCap;
             }
-            dc.drawText(f.mainRight, f.B - co, fo, one, Graphics.TEXT_JUSTIFY_RIGHT);
+            dc.drawText(f.mainRight, baseY - co, fo, one, Graphics.TEXT_JUSTIFY_RIGHT);
             return;
         }
 
@@ -322,8 +331,8 @@ class zzGearPlusView extends WatchUi.DataField {
             ct = f.subCap;
             ch = f.subCap;
         }
-        dc.drawText(f.mainRight, f.B - ct, ft, tail, Graphics.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(f.mainRight - dc.getTextWidthInPixels(tail, ft), f.B - ch, fh, head, Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(f.mainRight, baseY - ct, ft, tail, Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(f.mainRight - dc.getTextWidthInPixels(tail, ft), baseY - ch, fh, head, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
     // ---- 넓은 칸 ----
@@ -408,6 +417,12 @@ class zzGearPlusView extends WatchUi.DataField {
         if (availH <= 16 || areaW <= 16) {
             return;
         }
+        if (mCfg.gearView == Config.GV_BAR) {
+            var cut = (availH * (100 - pct)) / 200;
+            drawBars(dc, aL, aR, aTop + cut, aBot - cut, !Gears.oneX());
+            return;
+        }
+
         var cy = (aTop + aBot) / 2;
         if (Gears.oneX()) {
             var rc = (Layout.min(availH / 2, areaW / 2) * pct) / 100;
@@ -442,6 +457,90 @@ class zzGearPlusView extends WatchUi.DataField {
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, mIconF, "@", Graphics.TEXT_JUSTIFY_LEFT);
+    }
+
+    // ---- 카세트 옆모습(막대) ------------------------------------------
+
+    // 막대 하나 = 스프라켓 하나. 높이 = 톱니 크기, 가로 자리 = 단수.
+    //  회색 진하기는 동심원과 같은 뜻 (그 기어에서 보낸 시간).
+    //  현재 기어는 주황(크로스체인이면 빨강)으로 칠하고 위에 짧은 선을 하나 더 찍는다.
+    hidden function drawBars(dc, aL, aR, aTop, aBot, withFront) {
+        var h = aBot - aTop;
+        var w = aR - aL;
+        if (h < 10 || w < 20) {
+            return;
+        }
+
+        var n = (Gears.rMax != null) ? Gears.rMax : 12;
+        if (n < 2) { n = 2; }
+        if (n > 12) { n = 12; }
+
+        var fn = 0;
+        if (withFront) {
+            fn = (Gears.fMax != null) ? Gears.fMax : 2;
+            if (fn < 1) { fn = 1; }
+            if (fn > 3) { fn = 3; }
+        }
+
+        var slots = n + ((fn > 0) ? fn + 1 : 0);     // 앞기어 + 구분 한 칸
+        var step = w / slots;
+        if (step < 3 && fn > 0) {                    // 좁으면 앞기어는 접는다
+            fn = 0;
+            slots = n;
+            step = w / slots;
+        }
+        if (step < 2) {
+            return;
+        }
+        var bw = (step * 58) / 100;
+        if (bw < 2) { bw = 2; }
+        var mark = h / 12;
+        if (mark < 2) { mark = 2; }
+        var bh0 = h - mark - 1;                      // 현재 기어 표시선 자리를 위에 남긴다
+        if (bh0 < 6) { bh0 = h; }
+
+        var x = aL + (w - step * slots) / 2;         // 남는 폭은 양쪽에 반씩
+        var base = mDark ? 0x3A3A40 : 0xC6C6CC;
+
+        if (fn > 0) {
+            var fcur = Gears.frontPos();
+            for (var i = 0; i < fn; i++) {
+                var fh = (fn <= 1) ? bh0 : ((bh0 * (58 + (42 * i) / (fn - 1))) / 100);
+                var fx = x + (step - bw) / 2;
+                if (i == fcur) {
+                    dc.setColor(mBlue, Graphics.COLOR_TRANSPARENT);
+                    dc.fillRectangle(fx, aBot - fh, bw, fh);
+                    dc.fillRectangle(fx, aBot - fh - mark - 1, bw, mark);
+                } else {
+                    dc.setColor(base, Graphics.COLOR_TRANSPARENT);
+                    dc.fillRectangle(fx, aBot - fh, bw, fh);
+                }
+                x += step;
+            }
+            dc.setColor(mDim, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(x + step / 2, aTop + h / 5, 1, h - h / 5);
+            x += step;
+        }
+
+        var cur = Gears.rearPos();
+        var small = !mCfg.reverseRear;               // 뒤 1단 = 가장 작은 스프라켓
+        for (var pos = 0; pos < n; pos++) {
+            // 왼쪽이 큰 스프라켓 — 실제 카세트를 옆에서 본 순서.
+            //  오른쪽 위가 비므로 그 자리에 기어 숫자를 넣는다.
+            var j = small ? (n - 1 - pos) : pos;
+            var p = (n <= 1) ? 0 : ((60 * pos) / (n - 1));
+            var bh = (bh0 * (100 - p)) / 100;
+            var bx = x + (step - bw) / 2;
+            if (j == cur) {
+                dc.setColor(mAccent, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(bx, aBot - bh, bw, bh);
+                dc.fillRectangle(bx, aBot - bh - mark - 1, bw, mark);
+            } else {
+                dc.setColor(ringColor(j, n, n), Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(bx, aBot - bh, bw, bh);
+            }
+            x += step;
+        }
     }
 
     // ---- 동심원 ------------------------------------------------------

@@ -1,8 +1,11 @@
 <properties>
-    <property id="appVersion" type="string">1.0.1</property>
+    <property id="appVersion" type="string">1.0.2</property>
 
     <!-- 큰 숫자: 0=기어 단수(기본) 1=기어비. 윗줄에는 반대쪽이 들어간다 -->
     <property id="mainValue" type="number">0</property>
+
+    <!-- 기어 그림: 0=동심원(기본) 1=카세트 옆모습(막대) -->
+    <property id="gearView" type="number">0</property>
 
     <!-- 좌상단 기어 아이콘 / 변속기 배터리 (ANT+ 가 알려줄 때만) -->
     <property id="showIcon" type="boolean">true</property>

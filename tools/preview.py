@@ -32,6 +32,8 @@ ICON_K = 1.08
 
 CAS = [11, 12, 13, 14, 15, 17, 19, 21, 24, 27, 30, 34]
 LANG = ["ko"]      # 크로스체인 문구 언어
+BARS = [False]     # True 면 기어 그림을 막대로 (앱 설정 gearView)
+REVERSE = [False]  # 뒤 1단이 가장 큰 스프라켓인 구동계
 
 
 def fam_of(sw):
@@ -103,6 +105,58 @@ def cassette(d, cx, cy, R, cur, n, use, cross, dark):
     r = hole + sp * curShown
     acc = (RED_L if dark else RED_D) if cross else OR
     d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=acc, width=wc)
+
+
+def bars(d, aL, aR, aTop, aBot, r_cur, r_n, f_cur, f_n, use, cross, dark, with_front):
+    """카세트 옆모습. 앱 drawBars 와 같은 정수 계산."""
+    h = int(aBot - aTop); w = int(aR - aL)
+    if h < 10 or w < 20:
+        return
+    n = max(2, min(12, r_n))
+    fn = max(1, min(3, f_n)) if with_front else 0
+    slots = n + (fn + 1 if fn > 0 else 0)
+    step = w // slots
+    if step < 3 and fn > 0:
+        fn = 0; slots = n; step = w // slots
+    if step < 2:
+        return
+    bw = max(2, step * 58 // 100)
+    mark = max(2, h // 12)
+    bh0 = h - mark - 1
+    if bh0 < 6: bh0 = h
+    x = int(aL) + (w - step * slots) // 2
+    base = (58, 58, 64) if dark else (198, 198, 204)
+    used = (138, 138, 146) if dark else (128, 128, 134)
+    acc = (RED_L if dark else RED_D) if cross else OR
+    blue = BLUE_L if dark else BLUE_D
+    if fn > 0:
+        for i in range(fn):
+            fh = bh0 if fn <= 1 else (bh0 * (58 + (42 * i) // (fn - 1))) // 100
+            fx = x + (step - bw) // 2
+            col = blue if i == f_cur else base
+            d.rectangle([fx, aBot - fh, fx + bw - 1, aBot], fill=col)
+            if i == f_cur:
+                d.rectangle([fx - 1, aBot - fh - mark - 1, fx + bw, aBot - fh - 2], fill=col)
+            x += step
+        d.rectangle([x + step // 2, aTop + h // 5, x + step // 2, aBot], fill=(200,200,200) if not dark else (85,85,85))
+        x += step
+    for pos in range(n):
+        # 왼쪽이 큰 스프라켓 (실제 카세트를 옆에서 본 순서)
+        j = pos if REVERSE[0] else (n - 1 - pos)
+        p = 0 if n <= 1 else (60 * pos) // (n - 1)
+        bh = (bh0 * (100 - p)) // 100
+        bx = x + (step - bw) // 2
+        if j == r_cur:
+            col = acc
+        else:
+            col = base
+            if use:
+                t_ = min(1.0, use[j] / float(max(use))) if max(use) > 0 else 0
+                col = tuple(int(base[k] + (used[k] - base[k]) * t_) for k in range(3))
+        d.rectangle([bx, aBot - bh, bx + bw - 1, aBot], fill=col)
+        if j == r_cur:
+            d.rectangle([bx - 1, aBot - bh - mark - 1, bx + bw, aBot - bh - 2], fill=col)
+        x += step
 
 
 def front(d, cx, cy, R, cur, n, dark):
@@ -184,6 +238,21 @@ def _narrow(img, d, w, h, k, fg, dim, acc, col, f_i, r_i, f_n, r_n, ratio, use, 
     sc = C10_SCAP[k]
     topBase = T + sc
     areaTop = topBase
+    if BARS[0]:
+        # 막대: 칸 폭·높이를 다 쓰고, 오른쪽 위 빈 쐐기에 기어 숫자
+        bars(d, L, R, areaTop, B, r_i - 1, r_n, f_i - 1, f_n, use, cross, dark, False)
+        avail = (R - L) * 0.45
+        ft, ct = cap_font(C10_MCAP[k]), C10_MCAP[k]
+        fh, ch = cap_font(C10_HCAP[k]), C10_HCAP[k]
+        if wd(d, str(r_n), ft) + wd(d, "%d-" % f_n, fh) > avail or ct > (B - areaTop) * 0.62:
+            ft, ct = cap_font(C10_SCAP[k]), C10_SCAP[k]
+            fh, ch = cap_font(C10_DCAP[k]), C10_DCAP[k]
+        base_y = areaTop + ct + ug
+        tail = str(r_i)
+        tx(d, R, base_y, tail, ft, fg, "rs")
+        tx(d, R - wd(d, tail, ft), base_y, "%d-" % f_i, fh, fg, "rs")
+        _top_icon_ratio(img, d, L, T, R, sc, ug, acc, col, ratio, batt, dark, int(sc * ICON_K + 0.5))
+        return
     # 1) 동심원 (크기 고정, 오른쪽 10%)
     rr = (B - areaTop) / 2
     cx = L + rr + w * 0.10
@@ -267,6 +336,10 @@ def _train(d, L, R, T, B, k, r_i, r_n, f_i, f_n, use, dark, cross, scale):
     availH = B - T
     areaW = R - L
     if availH <= 16 or areaW <= 16:
+        return
+    if BARS[0]:
+        cut = (B - T) * (1 - scale) / 2
+        bars(d, L, R, T + cut, B - cut, r_i - 1, r_n, f_i - 1, f_n, use, cross, dark, f_n > 1)
         return
     cy = (T + B) / 2
     if f_n <= 1:
